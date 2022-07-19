@@ -25,7 +25,9 @@ namespace Project_Entity
             QuanLyQuanCaFeContext context = new QuanLyQuanCaFeContext();
             string user = tbUser.Text.Trim();
             string pass = tbPass.Text.Trim();
-            int role = cbAdmin.Checked ? 1 : 0;
+            User u = context.Users.Where(x => x.UserName == user && x.Password == pass).FirstOrDefault();   
+
+           
 
             if(user == string.Empty && pass == string.Empty)
             {
@@ -37,6 +39,7 @@ namespace Project_Entity
             {
                 if (CorrectAccount.Password.Equals(tbPass.Text))
                 {
+                    Account.role = (int)u.Priority;
                     fHome home = new fHome();
                     this.Hide();
                     home.Show();

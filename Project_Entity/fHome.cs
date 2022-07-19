@@ -34,7 +34,7 @@ namespace Project_Entity
 
                 Random random = new Random();
                 btn.Location = new Point(random.Next(0, TableHeight), TableHeight);
-                btn.Name = "Bàn " + item.Soban;
+                btn.Text = "Bàn " + item.Soban + Environment.NewLine + item.Tinhtrang;
                 if (item.Tinhtrang.Equals("Trống"))
                 {
                     btn.BackColor = Color.Red;
@@ -62,7 +62,8 @@ namespace Project_Entity
             foreach (var item in Table)
             {
                 Button btn = new Button();
-                btn.Name = "Bàn " + item.Soban;
+                btn.Text = "Bàn " + item.Soban + Environment.NewLine + item.Tinhtrang;
+                
                 if (item.Tinhtrang.Equals("Trống"))
                 {
                     btn.BackColor = Color.White;
@@ -88,6 +89,68 @@ namespace Project_Entity
             {
                 flowLayoutPanel1.Controls.Add(item);
             }
+        }
+
+
+
+        //Category
+       
+
+
+
+        private void fHome_Load(object sender, EventArgs e)
+        {
+            QuanLyQuanCaFeContext context = new QuanLyQuanCaFeContext();
+            cbFood.DataSource = context.Douongs.Select(x => x.Tendouong).Distinct().ToList();
+            if (Account.role == 0)
+            {
+                btFoodManager.Visible = false;
+                btManagerAccount.Visible = false;
+                btNhanVien.Visible = false;
+            }
+            
+                
+            
+            
+        }
+
+
+        void ShowBill()
+        {
+            QuanLyQuanCaFeContext context = new QuanLyQuanCaFeContext();
+            dgvBill.DataSource = context.CtHds.ToList();
+            
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            QuanLyQuanCaFeContext context = new QuanLyQuanCaFeContext();
+            
+        }
+
+        private void btControl_Click(object sender, EventArgs e)
+        {
+            fStaff staff = new fStaff();
+            
+            staff.ShowDialog();
+        }
+
+
+        private void btFoodManager_Click(object sender, EventArgs e)
+        {
+
+                fFoodManager fFoodManager = new fFoodManager();
+                fFoodManager.ShowDialog();
+                fFoodManager.Hide();
+            
+        }
+
+        private void btManagerAccount_Click(object sender, EventArgs e)
+        {
+           
+            fRegister fRegister = new fRegister();
+            fRegister.ShowDialog();
+            fRegister.Hide();
         }
     }
 }

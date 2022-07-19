@@ -6140,11 +6140,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\source\\repos\\Project_Entity\\Project_Entity\\Project_Entity.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\OneDrive\\Desktop\\Project_CaFe_Entity\\Project_CaFe_Entity\\Project_Entity\\Project_Entity.csproj",
       "projectName": "Project_Entity",
-      "projectPath": "C:\\Users\\Admin\\source\\repos\\Project_Entity\\Project_Entity\\Project_Entity.csproj",
+      "projectPath": "C:\\Users\\Admin\\OneDrive\\Desktop\\Project_CaFe_Entity\\Project_CaFe_Entity\\Project_Entity\\Project_Entity.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\source\\repos\\Project_Entity\\Project_Entity\\obj\\",
+      "outputPath": "C:\\Users\\Admin\\OneDrive\\Desktop\\Project_CaFe_Entity\\Project_CaFe_Entity\\Project_Entity\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
