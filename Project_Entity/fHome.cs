@@ -1,10 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Project_Entity.DataAccess;
+using Project_Entity.Logics;
 using Project_Entity.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,13 +28,15 @@ namespace Project_Entity
 
         private void formLoad()
         {
+            flowLayoutPanel1.Controls.Clear();
             QuanLyQuanCaFeContext context = new QuanLyQuanCaFeContext();
             List<Ban> Table = context.Bans.ToList<Ban>();
             foreach (var item in Table)
             {
                 Button btn = new Button() { Width = TableWidth, Height = TableWidth};
-                
-
+                btn.Click += btn_Click;
+                idban = item.Soban;
+                btn.Tag = item;
                 Random random = new Random();
                 btn.Location = new Point(random.Next(0, TableHeight), TableHeight);
                 btn.Text = "Bàn " + item.Soban + Environment.NewLine + item.Tinhtrang;
@@ -47,10 +52,47 @@ namespace Project_Entity
             }
         }
 
+
+
+        void ShowBill(int id)
+        {
+            listView1.Items.Clear();
+            List<Menu> listBillInfo = MenuDAO.Instance.GetListMenuByTable(id);
+            float totalPrice = 0;
+            foreach(Menu item in listBillInfo)
+            {
+                ListViewItem lsvItem = new ListViewItem(item.FoodName.ToString());
+                lsvItem.SubItems.Add(item.Count.ToString());
+                lsvItem.SubItems.Add(item.Price.ToString());
+                lsvItem.SubItems.Add(item.TotalPrice.ToString());
+                totalPrice += item.TotalPrice;
+                listView1.Items.Add(lsvItem);
+            }
+            CultureInfo culture = new CultureInfo("en-US");
+
+            txbTotalPrice.Text = totalPrice.ToString("c",culture);
+        }
+
+        
+
+        private void btn_Click(object? sender, EventArgs e)
+        {
+            int tableID = ((sender as Button).Tag as Ban).Soban;
+            this.idban = tableID;
+            listView1.Tag = (sender as Button).Tag;
+            ShowBill(tableID);
+        }
+
+        
+       
+
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
+
+
+        
 
 
 
@@ -72,9 +114,12 @@ namespace Project_Entity
                 {
                     btn.BackColor = Color.Red;
                 }
-
-                list.Add(btn);
-
+                btn.Tag = item.Soban.ToString();
+                btn.Text = item.Tinhtrang.ToString();
+                btn.Tag = item.Tinhtrang.ToString();
+                flowLayoutPanel1.Controls.Add((Button)btn);
+                btn.Controls.Add(btn);
+                list.Add(btn);  
             }
             return list;
         }
@@ -91,10 +136,14 @@ namespace Project_Entity
             }
         }
 
+        private int idban { get; set; }
 
+        
+
+       
 
         //Category
-       
+
 
 
 
@@ -108,6 +157,7 @@ namespace Project_Entity
                 btManagerAccount.Visible = false;
                 btNhanVien.Visible = false;
             }
+          
             
                 
             
@@ -115,16 +165,13 @@ namespace Project_Entity
         }
 
 
-        void ShowBill()
-        {
-            QuanLyQuanCaFeContext context = new QuanLyQuanCaFeContext();
-            dgvBill.DataSource = context.CtHds.ToList();
-            
-        }
+        
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             QuanLyQuanCaFeContext context = new QuanLyQuanCaFeContext();
+            
+
             
         }
 
@@ -151,6 +198,65 @@ namespace Project_Entity
             fRegister fRegister = new fRegister();
             fRegister.ShowDialog();
             fRegister.Hide();
+        }
+
+        private void flowLayoutPanel1_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btAdd_Click(object sender, EventArgs e)
+        {
+            QuanLyQuanCaFeContext context = new QuanLyQuanCaFeContext();
+            int MaHoaDon = context.Hoadons.Where(x => x.Soban == idban).FirstOrDefault().Id;
+            int MaSP = context.Douongs.Where(x => x.Tendouong.Equals(cbFood.Text)).FirstOrDefault().Id;
+            DateTime Ngay = DateTime.Now;
+            int SoLuong = (int)numericUpDown1.Value;
+            float DonGia = (float)context.Douongs.Where(x => x.Tendouong.Equals(cbFood.Text)).FirstOrDefault().Giatien;
+            
+            
+            
+            CtHd ctHd = new CtHd();
+            ctHd.Soban = idban;
+            ctHd.MaHoaDon = MaHoaDon;
+            ctHd.MaSp = MaSP;
+            ctHd.Ngayban = Ngay;
+            ctHd.SoLuong = SoLuong;
+            ctHd.DonGia = DonGia;
+            ctHd.ThanhTien = DonGia * SoLuong;
+
+            context.CtHds.Add(ctHd);
+            context.SaveChanges();
+            
+            ShowBill(ctHd.Soban);
+
+
+
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btPayment_Click(object sender, EventArgs e)
+        {
+            QuanLyQuanCaFeContext context = new QuanLyQuanCaFeContext();
+            List<CtHd> ctHd = context.CtHds.Where(x => x.Soban == idban).ToList();
+            foreach(CtHd item in ctHd)
+            {
+                context.CtHds.Remove(item);
+               
+            }
+            context.SaveChanges();
+            MessageBox.Show("Bạn thanh toán thành công");
+            ShowBill(idban);
+            
         }
     }
 }

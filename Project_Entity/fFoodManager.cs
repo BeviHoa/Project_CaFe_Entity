@@ -17,7 +17,7 @@ namespace Project_Entity
         {
             InitializeComponent();
         }
-
+        public int id;
         private void LoadDataForDGV()
         {
             QuanLyQuanCaFeContext context = new QuanLyQuanCaFeContext();
@@ -30,6 +30,7 @@ namespace Project_Entity
             {
                 DataGridViewRow row = this.dataGridView1.Rows[e.RowIndex];
                 txbId.Text = row.Cells[0].Value.ToString();
+                this.id = int.Parse(txbId.Text);
                 txbName.Text = row.Cells[1].Value.ToString();
                 txbNotes.Text = row.Cells[2].Value.ToString();
                 txbAmount.Text = row.Cells[3].Value.ToString();
@@ -46,10 +47,10 @@ namespace Project_Entity
         private Douong GetDouongInfo()
         {
             Douong douong = new Douong();
-            if (txbId.Text != null && !string.IsNullOrWhiteSpace(txbId.Text))
-            {
-                douong.Id = Convert.ToInt32(txbId.Text);
-            }
+            //if (txbId.Text != null && !string.IsNullOrWhiteSpace(txbId.Text))
+            //{
+            //    douong.Id = Convert.ToInt32(txbId.Text);
+            //}
             douong.Tendouong = txbName.Text.Trim();
 
             douong.Ghichu = txbNotes.Text.Trim();
@@ -73,13 +74,14 @@ namespace Project_Entity
         private void btUpdate_Click(object sender, EventArgs e)
         {
             QuanLyQuanCaFeContext context = new QuanLyQuanCaFeContext();
-            Douong u = GetDouongInfo();
-            Douong n = context.Douongs.FirstOrDefault(x => x.Id == u.Id);
-            n.Id = u.Id;
-            n.Tendouong = u.Tendouong;
-            n.Ghichu = u.Ghichu;
-            n.Soluong = u.Soluong;
-            n.Giatien = u.Giatien;
+
+            Douong n = context.Douongs.Find(id);
+            //n.Id = u.Id;
+            n.Tendouong = txbName.Text.Trim();
+            n.Soluong = int.Parse(txbAmount.Text.Trim());
+            n.Giatien = int.Parse(txbPrice.Text.Trim());
+            n.Ghichu = txbNotes.Text.Trim();
+            context.Douongs.Update(n);
             context.SaveChanges();
             LoadDataForDGV();
         }
@@ -87,7 +89,7 @@ namespace Project_Entity
         private void btDelete_Click(object sender, EventArgs e)
         {
             QuanLyQuanCaFeContext context = new QuanLyQuanCaFeContext();
-            Douong u = GetDouongInfo();
+            Douong u = context.Douongs.Find(id);
             context.Douongs.Remove(u);
             context.SaveChanges();
             LoadDataForDGV();

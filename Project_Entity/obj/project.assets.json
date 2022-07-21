@@ -6131,7 +6131,8 @@
     "net5.0-windows7.0": [
       "Microsoft.EntityFrameworkCore.Design >= 5.0.17",
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.17",
-      "Microsoft.Extensions.Configuration.Json >= 6.0.0"
+      "Microsoft.Extensions.Configuration.Json >= 6.0.0",
+      "System.Linq >= 4.3.0"
     ]
   },
   "packageFolders": {
@@ -6186,6 +6187,10 @@
           "Microsoft.Extensions.Configuration.Json": {
             "target": "Package",
             "version": "[6.0.0, )"
+          },
+          "System.Linq": {
+            "target": "Package",
+            "version": "[4.3.0, )"
           }
         },
         "imports": [

@@ -29,10 +29,15 @@
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
+            this.txbTotalPrice = new System.Windows.Forms.TextBox();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
             this.btPayment = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.dgvBill = new System.Windows.Forms.DataGridView();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.btAdd = new System.Windows.Forms.Button();
             this.cbFood = new System.Windows.Forms.ComboBox();
@@ -41,16 +46,16 @@
             this.btFoodManager = new System.Windows.Forms.Button();
             this.btManagerAccount = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvBill)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.txbTotalPrice);
+            this.panel2.Controls.Add(this.listView1);
             this.panel2.Controls.Add(this.btPayment);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.label1);
-            this.panel2.Controls.Add(this.dgvBill);
             this.panel2.Controls.Add(this.numericUpDown1);
             this.panel2.Controls.Add(this.btAdd);
             this.panel2.Controls.Add(this.cbFood);
@@ -58,6 +63,44 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(440, 495);
             this.panel2.TabIndex = 1;
+            // 
+            // txbTotalPrice
+            // 
+            this.txbTotalPrice.Location = new System.Drawing.Point(0, 461);
+            this.txbTotalPrice.Name = "txbTotalPrice";
+            this.txbTotalPrice.Size = new System.Drawing.Size(128, 23);
+            this.txbTotalPrice.TabIndex = 9;
+            // 
+            // listView1
+            // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4});
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(3, 60);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(434, 393);
+            this.listView1.TabIndex = 8;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Tên món";
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Số lượng";
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Đơn giá";
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Thành tiền";
             // 
             // btPayment
             // 
@@ -67,6 +110,7 @@
             this.btPayment.TabIndex = 7;
             this.btPayment.Text = "Payment";
             this.btPayment.UseVisualStyleBackColor = true;
+            this.btPayment.Click += new System.EventHandler(this.btPayment_Click);
             // 
             // label2
             // 
@@ -86,22 +130,13 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "Number";
             // 
-            // dgvBill
-            // 
-            this.dgvBill.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvBill.Location = new System.Drawing.Point(3, 37);
-            this.dgvBill.Name = "dgvBill";
-            this.dgvBill.RowTemplate.Height = 25;
-            this.dgvBill.Size = new System.Drawing.Size(434, 416);
-            this.dgvBill.TabIndex = 4;
-            this.dgvBill.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
             // numericUpDown1
             // 
             this.numericUpDown1.Location = new System.Drawing.Point(346, 8);
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(83, 23);
             this.numericUpDown1.TabIndex = 3;
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // btAdd
             // 
@@ -111,6 +146,7 @@
             this.btAdd.TabIndex = 2;
             this.btAdd.Text = "Add";
             this.btAdd.UseVisualStyleBackColor = true;
+            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
             // 
             // cbFood
             // 
@@ -127,6 +163,7 @@
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(406, 493);
             this.flowLayoutPanel1.TabIndex = 2;
+            this.flowLayoutPanel1.Click += new System.EventHandler(this.flowLayoutPanel1_Click);
             // 
             // btNhanVien
             // 
@@ -173,7 +210,6 @@
             this.Load += new System.EventHandler(this.fHome_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvBill)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 
@@ -189,10 +225,16 @@
         private System.Windows.Forms.Button btPayment;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.DataGridView dgvBill;
         private System.Windows.Forms.Button btControl;
         private System.Windows.Forms.Button btFoodManager;
         private System.Windows.Forms.Button btManagerAccount;
         private System.Windows.Forms.Button btNhanVien;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txbTotalPrice;
     }
 }

@@ -133,3 +133,9 @@ C:\Users\Admin\OneDrive\Desktop\Project_CaFe_Entity\Project_CaFe_Entity\Project_
 C:\Users\Admin\OneDrive\Desktop\Project_CaFe_Entity\Project_CaFe_Entity\Project_Entity\obj\Debug\net5.0-windows\Project_Entity.fFoodManager.resources
 C:\Users\Admin\OneDrive\Desktop\Project_CaFe_Entity\Project_CaFe_Entity\Project_Entity\obj\Debug\net5.0-windows\Project_Entity.fStaff.resources
 C:\Users\Admin\OneDrive\Desktop\Project_CaFe_Entity\Project_CaFe_Entity\Project_Entity\obj\Debug\net5.0-windows\Project_Entity.fRegister.resources
+C:\Users\Admin\OneDrive\Desktop\Project_CaFe_Entity\Project_CaFe_Entity\Project_Entity\bin\Debug\net5.0-windows\Project_Entity.dll.config
+C:\Users\Admin\OneDrive\Desktop\Project_CaFe_Entity\Project_CaFe_Entity\Project_Entity\bin\Debug\net5.0-windows\Microsoft.Data.Tools.Schema.Sql.dll
+C:\Users\Admin\OneDrive\Desktop\Project_CaFe_Entity\Project_CaFe_Entity\Project_Entity\bin\Debug\net5.0-windows\Microsoft.Data.Tools.Schema.Sql.UnitTesting.dll
+C:\Users\Admin\OneDrive\Desktop\Project_CaFe_Entity\Project_CaFe_Entity\Project_Entity\bin\Debug\net5.0-windows\Microsoft.Data.Tools.Schema.Sql.UnitTestingAdapter.dll
+C:\Users\Admin\OneDrive\Desktop\Project_CaFe_Entity\Project_CaFe_Entity\Project_Entity\bin\Debug\net5.0-windows\Microsoft.Data.Tools.Utilities.dll
+C:\Users\Admin\OneDrive\Desktop\Project_CaFe_Entity\Project_CaFe_Entity\Project_Entity\bin\Debug\net5.0-windows\Microsoft.SqlServer.TransactSql.ScriptDom.dll
