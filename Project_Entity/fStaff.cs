@@ -28,6 +28,7 @@ namespace Project_Entity
         {
             QuanLyQuanCaFeContext context = new QuanLyQuanCaFeContext();
             dataGridView1.DataSource = context.Nhanviens.ToList();
+            dataGridView1.Columns["Catrucs"].Visible = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -50,7 +51,7 @@ namespace Project_Entity
                 DataGridViewRow row = this.dataGridView1.Rows[e.RowIndex];
                 txbId.Text = row.Cells[0].Value.ToString();
                 txbName.Text = row.Cells[1].Value.ToString();
-                if ((string)row.Cells[2].Value == "Nữ")
+                if ((string)row.Cells[2].Value == "Girl")
                 {
                     rbGirl.Checked = true;
                 }
@@ -65,10 +66,7 @@ namespace Project_Entity
         private Nhanvien GetNhanvienInfo()
         {
             Nhanvien s = new Nhanvien();
-            if (txbId.Text != null && !string.IsNullOrWhiteSpace(txbId.Text))
-            {
-                s.Manv = Convert.ToInt32(txbId.Text);
-            }
+            
             s.Tenhanvien = txbName.Text.Trim();
             
             s.Gioitinh = rbGirl.Text.Trim();
@@ -82,9 +80,17 @@ namespace Project_Entity
         {
             QuanLyQuanCaFeContext context = new QuanLyQuanCaFeContext();
             Nhanvien s = GetNhanvienInfo();
-            context.Nhanviens.Add(s);
-            context.SaveChanges();
-            LoadDataForDGV();
+            if(txbName.Text == "")
+            {
+                MessageBox.Show("Name not null");
+            }
+            else
+            {
+                context.Nhanviens.Add(s);
+                context.SaveChanges();
+                LoadDataForDGV();
+            }
+            
         }
 
         private void btUpdate_Click(object sender, EventArgs e)

@@ -20,6 +20,8 @@ namespace Project_Entity
 
         public static int TableWidth = 125;
         public static int TableHeight = 125;
+        private object db;
+
         public fHome()
         {
             InitializeComponent();
@@ -42,11 +44,11 @@ namespace Project_Entity
                 btn.Text = "Bàn " + item.Soban + Environment.NewLine + item.Tinhtrang;
                 if (item.Tinhtrang.Equals("Trống"))
                 {
-                    btn.BackColor = Color.Red;
+                    btn.BackColor = Color.White;
                 }
                 else
                 {
-                    btn.BackColor = Color.White;
+                    btn.BackColor = Color.DeepSkyBlue;
                 }
                 flowLayoutPanel1.Controls.Add(btn);
             }
@@ -58,6 +60,7 @@ namespace Project_Entity
         {
             listView1.Items.Clear();
             List<Menu> listBillInfo = MenuDAO.Instance.GetListMenuByTable(id);
+            
             float totalPrice = 0;
             foreach(Menu item in listBillInfo)
             {
@@ -230,9 +233,14 @@ namespace Project_Entity
             ctHd.DonGia = DonGia;
             ctHd.ThanhTien = DonGia * SoLuong;
 
+            
             context.CtHds.Add(ctHd);
             context.SaveChanges();
-            
+            Ban b = context.Bans.Find(idban);
+            b.Tinhtrang = "Có người";
+            context.Bans.Update(b);
+            context.SaveChanges();
+            formLoad();
             ShowBill(ctHd.Soban);
 
 
@@ -255,6 +263,14 @@ namespace Project_Entity
             }
             context.SaveChanges();
             MessageBox.Show("Bạn thanh toán thành công");
+            Ban b = context.Bans.Find(idban);
+            b.Tinhtrang = "Trống";
+            context.Bans.Update(b);
+            context.SaveChanges();
+            formLoad();
+
+
+
             ShowBill(idban);
             
         }
